@@ -13,7 +13,7 @@
 			"name": "SpotifyLyrics",
 			"author": "ThEditor",
 			"version": "0.0.1",
-			"description": "Adds a Control Panel while listening to Spotify on a connected Account"
+			"description": "Displays spotify karaoke lyrics"
 		}
 	};
 
@@ -205,10 +205,10 @@
 					  }
 				});
 				return BDFDB.ReactUtils.createElement("div", {
-					className: BDFDB.DOMUtils.formatClassName(BDFDB.disCN._spotifylyricscontainer, this.props.maximized && BDFDB.disCN._spotifylyricscontainermaximized, this.props.timeline && BDFDB.disCN._spotifylyricscontainerwithtimeline),
+					className: BDFDB.DOMUtils.formatClassName(BDFDB.disCN._spotifylyricscontainer),
 					children: [
 						BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.TextElement, {
-							className: BDFDB.disCN._spotifycontrolssong,
+							className: BDFDB.disCN._spotifylyricssong,
 							children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.TextScroller, {
 								children: thelyrics
 							})
@@ -221,24 +221,6 @@
 		return class SpotifyLyrics extends Plugin {
 			onLoad () {
 				_this = this;
-				
-				this.defaults = {
-					general: {
-						addBy: 			{value: true,		description: "Adds the Word 'by' infront of the Author Name"},
-						addTimeline: 		{value: true,		description: "Shows the Song Timeline in the Controls"},
-						addActivityButton: 	{value: true,		description: "Shows the Activity Status Toggle Button in the Controls"},
-						doubleBack: 		{value: true,		description: "Requires the User to press the Back Button twice to go to previous Track"}
-					},
-					buttons: {
-						share: 				{value: {small: false, big: true},		icons: [""],						description: "Share"},
-						shuffle: 			{value: {small: false, big: true},		icons: [""],						description: "Shuffle"},
-						previous: 			{value: {small: true, big: true},		icons: [""],						description: "Previous"},
-						pauseplay: 			{value: {small: true, big: true},		icons: ["", ""],					description: "Pause/Play"},
-						next: 				{value: {small: true, big: true},		icons: [""],						description: "Next"},
-						repeat: 			{value: {small: false, big: true},		icons: ["", ""],					description: "Repeat"},
-						volume: 			{value: {small: false, big: true},		icons: ["", "", "", ""],		description: "Volume"}
-					}
-				};
 				
 				this.patchedModules = {
 					before: {
@@ -285,10 +267,6 @@
 					BDFDB.ReactUtils.createElement(SpotifyLyricsComponent, {
 						key: "SPOTIFY_LYRICS",
 						song: BDFDB.LibraryModules.SpotifyTrackUtils.getActivity(false),
-						maximized: BDFDB.DataUtils.load(this, "playerState", "maximized"),
-						buttonStates: [],
-						timeline: this.settings.general.addTimeline,
-						activityToggle: this.settings.general.addActivityButton
 					}, true),
 					[e.instance.props.children].flat(10).filter(n => !n || n.key != "SPOTIFY_LYRICS")
 				].flat(10);
