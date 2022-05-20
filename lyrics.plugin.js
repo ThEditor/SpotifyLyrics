@@ -208,12 +208,20 @@
 					className: BDFDB.DOMUtils.formatClassName(BDFDB.disCN._spotifylyricscontainer),
 					children: [
 						BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.TextElement, {
-							className: BDFDB.disCN._spotifylyricssong,
-							children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.TextScroller, {
-								children: thelyrics
-							})
+							children: thelyrics,
+							style: {
+								"word-wrap": "break-word",
+								"text-align": "center"
+							}
 						}),
-					]
+					],
+					style: {
+						"display": "flex",
+						"flex-direction": "column",
+						"justify-content": "center",
+						"min-height": thelyrics ? "52px" : "0px",
+						"order": "-1"
+					}
 				});
 			}
 		};
@@ -227,16 +235,6 @@
 						AnalyticsContext: "render"
 					}
 				};
-				
-				this.css = `
-					:root {
-						--SC-spotify-green: ${BDFDB.DiscordConstants.Colors.SPOTIFY};
-					}
-					${BDFDB.dotCN.channelpanels} {
-						display: flex;
-						flex-direction: column;
-					}
-				`;
 			}
 			
 			onStart () {
